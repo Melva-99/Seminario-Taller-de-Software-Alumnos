@@ -1,0 +1,101 @@
+extends base.pug
+
+block head
+    link(rel="stylesheet", href="css/style.css")
+
+block title
+    title Alumnos
+
+block container
+    main.mt-5
+        h2 Alumnos
+        table.table.table-hover
+            thead
+                tr
+                    th ID
+                    th Nombre
+                    th Apellido 
+                    th Celular 
+                    th Sexo 
+                    th Email 
+                    th Carrera
+            tbody
+                if alumnos.length 
+                    each a in alumnos 
+                        tr 
+                            td #{a.idAlumno}
+                            td #{a.nombres} 
+                            td #{a.apellidos} 
+                            td #{a.celular}
+                            td #{a.sexo} 
+                            td #{a.email} 
+                            td #{a.nombreCarrera}
+                else 
+                    tr 
+                        td.text-center.fw-bold(colspan=7) No hay alumnos ingresados
+        .row
+            .col-4
+                form(action="/agregarAlumno" method="post")
+                    .row 
+                        .col-4
+                            .form-group.mt-3
+                                label.fw-bold(for="nombres") Nombre
+                                input.form-control.agregar(type='text' placeholder='Ingrese el nombre del alumno' name="nombres" required)
+                            .form-group.mt-3
+                                label.fw-bold(for="apellidos") Apellido
+                                input.form-control.agregar(type='text' placeholder='Ingrese el apellido del alumno' name="apellidos" required)
+                            .form-group.mt-3
+                                label.fw-bold(for="celular") Celular
+                                input.form-control.agregar(type='number' placeholder='Ingrese el número de celular' name="celular" required)
+                            .form-group.mt-3
+                                label.fw-bold(for="sexo") Sexo
+                                input.form-control.agregar(type='text' name="sexo" required)
+                            .form-group.mt-3
+                                label.fw-bold(for="email") Email
+                                input.form-control.agregar(type='email' placeholder='Ingrese el correo electrónico' name="email" required)
+                            .form-group.mt-3
+                                label.fw-bold(for="fkCarrera") Carrera
+                                select.form-select.agregar(name='fkCarrera')
+                                    each c in carreras 
+                                        option(value=c.idCarrera) #{c.nombreCarrera}
+                            .form-check.mt-3
+                                button.agregar.btn.btn-lg.btn-success(type="submit") Registrar
+                        .col-4
+            .col-4    
+                form(action="/alumnos" method="GET")
+                    .form-group.mt-3
+                        input.form-control.agregarB(type='search' name='q' value=q?q:"" placeholder='Buscar alumno por ID')    
+                form(action="/actualizarAlumnos" method="post") 
+                    input.form-control.agregar(type='text' name='idAlumno' value=actualizar?actualizar.idAlumno:null hidden )
+                    .form-group.mt-3
+                        label.fw-bold(for="nombres") Nombre
+                        input.form-control.agregar(type='text' name="nombres" value=actualizar?actualizar.nombres:""  required)
+                    .form-group.mt-3
+                        label.fw-bold(for="apellidos") Apellido
+                        input.form-control.agregar(type='text' name="apellidos" value=actualizar?actualizar.apellidos:"" required)
+                    .form-group.mt-3
+                        label.fw-bold(for="celular") Celular
+                        input.form-control.agregar(type='number' name="celular" value=actualizar?actualizar.celular:""  required)     
+                    .form-group.mt-3
+                        label.fw-bold(for="sexo") Sexo
+                        input.form-control.agregar(type='text' name="sexo" value=actualizar?actualizar.sexo:"" required)
+                    .form-group.mt-3
+                        label.fw-bold(for="email") Email
+                        input.form-control.agregar(type='email' name="email" value=actualizar?actualizar.email:"" required)
+                    .form-group.mt-3
+                        label.fw-bold(for="fkCarrera") Carrera
+                        select.form-select.agregar(name='fkCarrera')
+                            each c in carreras
+                                if actualizar && actualizar.fkCarrera == c.idCarrera
+                                    option(value=c.idCarrera selected) #{c.nombreCarrera}
+                                else 
+                                    option(value=c.idCarrera) #{c.nombreCarrera}
+                    .form-check.mt-3
+                        button.agregar.btn.btn-lg.btn-primary.boton(type="submit") Actualizar 
+            .col-4
+                form(action="/eliminarAlumno" method="post")
+                    .form-group.mt-3
+                        label.fw-bold(for="idCarrera") ID Alumno
+                        input.form-control.agregar(type='number' placeholder='Ingrese el ID del alumno' name="idAlumno" required)
+                    .form-check.mt-3
+                        button.agregar.btn.btn-lg.btn-danger(type="submit") Eliminar 

@@ -1,0 +1,60 @@
+extends base.pug
+
+block head
+    link(rel="stylesheet", href="css/style.css")
+
+block title
+    title Carreras
+
+block container
+    main.mt-5
+        h2 Carreras
+        .row
+            .col-4
+                form(action="/agregarCarrera" method="post")
+                    .form-group.mt-3
+                        label.fw-bold(for="nombreCarrera") Carrera
+                        input.form-control.agregar(type='text' placeholder='Ingrese el nombre de la carrera' name="nombreCarrera" required)
+                    .form-group.mt-3
+                        label.fw-bold(for="numeroClases") Total de clases
+                        input.form-control.agregar(type='number' placeholder='Ingrese el total de las clases' name="numeroClases" required)
+                    .form-check.mt-3
+                        button.agregar.btn.btn-lg.btn-success(type="submit") Registrar
+            .col-4
+                form(action="/carreras" method="GET")
+                    .form-group.mt-3
+                        input.form-control.agregarB(type='search' name='q' value=q?q:"" placeholder='Buscar carrera por ID y presionar enter')
+                form(action="/actualizarCarreras" method="post")
+                    input.form-control.agregar(type='text' name='idCarrera' value=actualizar?actualizar.idCarrera:null hidden )
+                    .form-group.mt-3
+                        label.fw-bold(for="nombreCarrera") Carrera
+                        input.form-control.agregar(type='text' name="nombreCarrera" value=actualizar?actualizar.nombreCarrera:"" required)
+                    .form-group.mt-3
+                        label.fw-bold(for="numeroClases") N° Clases
+                        input.form-control.agregar(type='number' name="numeroClases" value=actualizar?actualizar.numeroClases:"" required)
+                    .form-check.mt-3
+                        button.agregar.btn.btn-lg.btn-primary(type="submit") Actualizar
+            .col-4
+                form(action="/eliminar" method="post")
+                    .form-group.mt-3
+                        label.fw-bold(for="idCarrera") ID Carrera
+                        input.form-control.agregar(type='number' placeholder='Ingrese el ID de la carrera' name="idCarrera" required)
+                    .form-check.mt-3
+                        button.agregar.btn.btn-lg.btn-danger(type="submit") Eliminar  
+        .row
+                table.table.table-hover
+                    thead
+                        tr
+                            th ID
+                            th Carrera
+                            th N° Clases
+                    tbody
+                        if carreras.length 
+                            each c in carreras 
+                                tr 
+                                    td #{c.idCarrera}
+                                    td #{c.nombreCarrera} 
+                                    td #{c.numeroClases} 
+                        else 
+                            tr 
+                                td.text-center.fw-bold(colspan=3) No hay carreras ingresadas

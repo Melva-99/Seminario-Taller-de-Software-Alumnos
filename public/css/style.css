@@ -1,0 +1,47 @@
+html,
+body {
+  height: 100%;
+}
+.agregar{
+  height: 50px;
+  width: 300px;
+}
+.agregarB{
+  height: 50px;
+  width: 300px;
+  margin-top: 40px;
+}
+button.agregar{
+  height: 50px;
+  width: 300px;
+  margin-left: -25px;
+}
+.tabla{
+  width: 500px;
+}
+.espacios{
+  margin-right:20px;
+}
+.agregarM{
+  height: 50px;
+  width: 300px;
+  margin-left: 37%;
+}
+.ag{
+  margin-top: -65px;
+}
+.boton{
+  margin-top: 25px;
+}
+.icon{
+  margin-top: 20%;
+  font-size: 50px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(52, 165, 218);
+}
+.icon:hover{
+  color: rgb(11, 97, 138);
+}
+.tcolor{
+  color: rgb(11, 97, 138);
+}
